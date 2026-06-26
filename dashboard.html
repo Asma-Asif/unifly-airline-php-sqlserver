@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Dashboard - Unifly Airline</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo"><span class="logo-text">Unifly</span><span class="logo-sub">Airline</span></div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="flights.html">Flights</a></li>
+                <li><a href="profile.html">My Profile</a></li>
+                <li><a href="miles.html">UniflyMiles</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-buttons">
+                <a href="#" onclick="logoutUser()" class="btn-login">Logout</a>
+            </div>
+        </div>
+    </nav>
+    <section class="dashboard-section">
+        <div class="dashboard-container">
+            <div class="dash-welcome">
+                <h1>Welcome back, <span id="user-name">...</span>!</h1>
+                <p>Manage your bookings and loyalty points</p>
+            </div>
+            <div class="dash-stats">
+                <div class="stat-card"><span class="stat-number" id="total-bookings">0</span><span class="stat-label">Total Bookings</span></div>
+                <div class="stat-card"><span class="stat-number" id="upcoming">0</span><span class="stat-label">Upcoming Flights</span></div>
+                <div class="stat-card"><span class="stat-number" id="points">0</span><span class="stat-label">UniflyMiles</span></div>
+                <div class="stat-card"><span class="stat-number" id="complaints">0</span><span class="stat-label">Open Complaints</span></div>
+            </div>
+            <div class="dash-card">
+                <h2>My Bookings</h2>
+                <div id="bookings-list"><p class="loading">Loading bookings...</p></div>
+            </div>
+        </div>
+    </section>
+    <footer class="footer"><div class="footer-bottom"><p>&copy; 2026 Unifly Airline. All rights reserved.</p></div></footer>
+    <script src="js/main.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

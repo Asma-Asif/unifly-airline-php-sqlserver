@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UniflyMiles - Unifly Airline</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .miles-section { min-height: 100vh; background: #f5f7fa; padding: 40px 20px; }
+        .miles-container { max-width: 800px; margin: 0 auto; }
+        .miles-hero { background: linear-gradient(135deg, #1a1a2e 0%, #1b6ca8 100%); border-radius: 20px; padding: 36px; color: #fff; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+        .miles-points { font-size: 3.5rem; font-weight: 900; line-height: 1; }
+        .tier-badge { display: inline-block; padding: 8px 20px; border-radius: 30px; font-weight: 800; font-size: 0.9rem; margin-bottom: 8px; }
+        .tier-bronze  { background: #cd7f32; color: #fff; }
+        .tier-silver  { background: #c0c0c0; color: #333; }
+        .tier-gold    { background: #ffd700; color: #333; }
+        .tier-platinum{ background: #e5e4e2; color: #333; }
+        .progress-track { background: rgba(255,255,255,0.2); border-radius: 10px; height: 8px; overflow: hidden; margin-top: 6px; }
+        .progress-fill { height: 100%; border-radius: 10px; background: #ffd700; transition: width 1s ease; }
+        .miles-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-bottom: 24px; }
+        .miles-stat { background: #fff; border-radius: 14px; padding: 20px; text-align: center; box-shadow: 0 2px 12px rgba(0,0,0,0.07); }
+        .miles-stat .s-num { font-size: 1.8rem; font-weight: 800; color: #1b6ca8; }
+        .miles-stat .s-lbl { font-size: 0.75rem; color: #888; margin-top: 4px; text-transform: uppercase; }
+        .miles-card { background: #fff; border-radius: 16px; padding: 28px; box-shadow: 0 2px 16px rgba(0,0,0,0.08); margin-bottom: 20px; }
+        .miles-card h3 { font-size: 1rem; font-weight: 700; color: #1a1a2e; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 0.06em; border-bottom: 2px solid #f0f0f0; padding-bottom: 12px; }
+        .rewards-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; }
+        .reward-item { border: 1.5px solid #e8edf3; border-radius: 12px; padding: 20px; display: flex; align-items: center; gap: 14px; transition: all 0.2s; }
+        .reward-item:hover { border-color: #1b6ca8; background: #f0f7ff; }
+        .reward-icon { font-size: 2rem; flex-shrink: 0; }
+        .reward-info h4 { font-size: 0.92rem; font-weight: 700; color: #1a1a2e; margin-bottom: 4px; }
+        .reward-info p { font-size: 0.78rem; color: #888; margin-bottom: 8px; }
+        .reward-cost { display: inline-block; background: #e3f2fd; color: #1565c0; font-size: 0.75rem; font-weight: 700; padding: 3px 10px; border-radius: 20px; }
+        .btn-redeem { display: block; width: 100%; margin-top: 8px; padding: 7px; background: #1b6ca8; color: #fff; border: none; border-radius: 8px; font-size: 0.8rem; font-weight: 700; cursor: pointer; }
+        .btn-redeem:hover { background: #155a8a; }
+        .txn-item { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid #f0f0f0; }
+        .txn-item:last-child { border-bottom: none; }
+        .txn-desc { font-size: 0.88rem; font-weight: 600; color: #1a1a2e; }
+        .txn-date { font-size: 0.75rem; color: #aaa; }
+        .txn-points { font-size: 1rem; font-weight: 800; }
+        .txn-points.earn   { color: #2e7d32; }
+        .txn-points.redeem { color: #e53935; }
+        .no-txn { text-align: center; color: #aaa; font-size: 0.88rem; padding: 20px; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo"><span class="logo-text">Unifly</span><span class="logo-sub">Airline</span></div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="flights.html">Flights</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-buttons"><a href="#" onclick="logoutUser()" class="btn-login">Logout</a></div>
+        </div>
+    </nav>
+    <section class="miles-section">
+        <div class="miles-container">
+            <div class="miles-hero">
+                <div>
+                    <h2 style="opacity:0.8;margin-bottom:8px;">Your Miles Balance</h2>
+                    <div class="miles-points"><span id="hero-points">0</span> <span style="font-size:1rem;font-weight:400;opacity:0.7;">miles</span></div>
+                    <div style="margin-top:12px;">
+                        <div style="font-size:0.78rem;opacity:0.8;" id="progress-label">Loading...</div>
+                        <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+                    </div>
+                </div>
+                <div style="text-align:right;">
+                    <div class="tier-badge tier-bronze" id="tier-badge">Bronze</div>
+                    <div style="font-size:0.78rem;opacity:0.7;" id="tier-next">Earn more to level up</div>
+                </div>
+            </div>
+            <div class="miles-stats">
+                <div class="miles-stat"><div class="s-num" id="total-earned">0</div><div class="s-lbl">Total Earned</div></div>
+                <div class="miles-stat"><div class="s-num" id="total-redeemed">0</div><div class="s-lbl">Total Redeemed</div></div>
+                <div class="miles-stat"><div class="s-num" id="current-balance">0</div><div class="s-lbl">Current Balance</div></div>
+            </div>
+            <div class="miles-card">
+                <h3>🎁 Redeem Rewards</h3>
+                <div class="rewards-grid">
+                    <div class="reward-item"><div class="reward-icon">🧳</div><div class="reward-info"><h4>Extra Baggage 10kg</h4><p>Add 10kg baggage on your next flight</p><span class="reward-cost">500 miles</span><button class="btn-redeem" onclick="redeemReward('baggage_10kg',500)">Redeem</button></div></div>
+                    <div class="reward-item"><div class="reward-icon">💺</div><div class="reward-info"><h4>Seat Upgrade</h4><p>Upgrade to business class</p><span class="reward-cost">2,000 miles</span><button class="btn-redeem" onclick="redeemReward('seat_upgrade',2000)">Redeem</button></div></div>
+                    <div class="reward-item"><div class="reward-icon">🍽️</div><div class="reward-info"><h4>Premium Meal</h4><p>Enjoy a premium meal on your flight</p><span class="reward-cost">300 miles</span><button class="btn-redeem" onclick="redeemReward('premium_meal',300)">Redeem</button></div></div>
+                    <div class="reward-item"><div class="reward-icon">🎫</div><div class="reward-info"><h4>Free Domestic Flight</h4><p>Redeem for a free domestic ticket</p><span class="reward-cost">10,000 miles</span><button class="btn-redeem" onclick="redeemReward('free_flight',10000)">Redeem</button></div></div>
+                </div>
+            </div>
+            <div class="miles-card">
+                <h3>📋 Miles History</h3>
+                <div id="txn-list"><div style="text-align:center;padding:40px;color:#888;">Loading history...</div></div>
+            </div>
+        </div>
+    </section>
+    <footer class="footer"><div class="footer-bottom"><p>&copy; 2026 Unifly Airline. All rights reserved.</p></div></footer>
+    <script src="js/main.js"></script>
+    <script src="js/miles.js"></script>
+</body>
+</html>

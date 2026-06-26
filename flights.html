@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flights - Unifly Airline</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-text">Unifly</span>
+                <span class="logo-sub">Airline</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="flights.html">Flights</a></li>
+                <li><a href="deals.html">Deals</a></li>
+                <li><a href="flight-status.html">Flight Status</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-buttons">
+                <a href="login.html" class="btn-login">Login</a>
+                <a href="register.html" class="btn-register">Register</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="search-section">
+        <div class="search-box">
+            <h2>Search Flights</h2>
+            <div class="search-tabs">
+                <button class="search-tab active">One Way</button>
+            </div>
+            <div class="search-row">
+                <div class="search-field">
+                    <label>From</label>
+                    <input type="text" id="from" placeholder="e.g. LHE">
+                </div>
+                <div class="search-field">
+                    <label>To</label>
+                    <input type="text" id="to" placeholder="e.g. KHI">
+                </div>
+                <div class="search-field">
+                    <label>Date</label>
+                    <input type="date" id="date">
+                </div>
+                <div class="search-field">
+                    <label>Class</label>
+                    <select id="class">
+                        <option>Economy</option>
+                        <option>Business</option>
+                    </select>
+                </div>
+            </div>
+            <button class="btn-search" onclick="searchFlights()">
+                Search Flights
+            </button>
+        </div>
+    </section>
+
+    <section class="results-section">
+        <div class="results-container">
+            <div id="results-info"></div>
+            <div id="flights-list"></div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-bottom">
+            <p>&copy; 2026 Unifly Airline. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/flights.js"></script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Status - Unifly Airline</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .status-section { min-height: 100vh; background: #f5f7fa; padding: 40px 20px; }
+        .status-container { max-width: 800px; margin: 0 auto; }
+        .status-header { text-align: center; margin-bottom: 30px; }
+        .status-header h1 { font-size: 2rem; color: #1a1a2e; margin-bottom: 8px; }
+        .search-card { background: #fff; border-radius: 16px; padding: 28px; box-shadow: 0 2px 16px rgba(0,0,0,0.08); margin-bottom: 24px; }
+        .search-card h3 { font-size: 1rem; font-weight: 700; color: #1a1a2e; margin-bottom: 20px; }
+        .stab { padding: 8px 20px; border-radius: 8px; border: 1.5px solid #e0e0e0; background: #fff; font-size: 0.85rem; font-weight: 600; cursor: pointer; color: #666; margin-right: 8px; margin-bottom: 16px; }
+        .stab.active { background: #1b6ca8; border-color: #1b6ca8; color: #fff; }
+        .status-field label { display: block; font-size: 0.8rem; font-weight: 600; color: #555; margin-bottom: 6px; }
+        .status-field input { width: 100%; padding: 11px 14px; border: 1.5px solid #e0e0e0; border-radius: 10px; font-size: 0.92rem; box-sizing: border-box; margin-bottom: 12px; }
+        .btn-check { padding: 11px 24px; background: #1b6ca8; color: #fff; border: none; border-radius: 10px; font-size: 0.95rem; font-weight: 700; cursor: pointer; }
+        .btn-check:hover { background: #155a8a; }
+        .result-card { background: #fff; border-radius: 16px; padding: 28px; box-shadow: 0 2px 16px rgba(0,0,0,0.08); margin-bottom: 20px; }
+        .status-badge { display: inline-block; padding: 6px 16px; border-radius: 20px; font-size: 0.82rem; font-weight: 700; text-transform: uppercase; }
+        .status-badge.scheduled { background: #e3f2fd; color: #1565c0; }
+        .status-badge.boarding  { background: #fff8e1; color: #f57f17; }
+        .status-badge.departed  { background: #e8f5e9; color: #2e7d32; }
+        .status-badge.arrived   { background: #e8f5e9; color: #2e7d32; }
+        .status-badge.delayed   { background: #fff3e0; color: #e65100; }
+        .status-badge.cancelled { background: #fdeaea; color: #c62828; }
+        .status-route { display: flex; align-items: center; justify-content: space-between; background: #f8faff; border-radius: 12px; padding: 20px 24px; margin: 16px 0; }
+        .status-code { font-size: 2.2rem; font-weight: 800; color: #1a1a2e; }
+        .status-city-name { font-size: 0.78rem; color: #888; margin-top: 2px; }
+        .status-time { font-size: 1.1rem; font-weight: 700; color: #1b6ca8; margin-top: 6px; }
+        .detail-box { background: #f8faff; border-radius: 10px; padding: 14px; margin-bottom: 8px; }
+        .detail-box .d-lbl { font-size: 0.7rem; color: #aaa; text-transform: uppercase; }
+        .detail-box .d-val { font-size: 0.95rem; font-weight: 700; color: #1a1a2e; margin-top: 3px; }
+        .no-result { text-align: center; color: #888; padding: 40px; }
+        .loading-status { text-align: center; padding: 40px; color: #888; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo"><span class="logo-text">Unifly</span><span class="logo-sub">Airline</span></div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="flights.html">Flights</a></li>
+                <li><a href="flight-status.html">Flight Status</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-buttons">
+                <a href="login.html" class="btn-login">Login</a>
+                <a href="register.html" class="btn-register">Register</a>
+            </div>
+        </div>
+    </nav>
+    <section class="status-section">
+        <div class="status-container">
+            <div class="status-header"><h1>✈ Flight Status</h1><p>Check real-time status of any Unifly flight</p></div>
+            <div class="search-card">
+                <h3>🔍 Search Flight</h3>
+                <button class="stab active" onclick="switchTab(this,'number')">By Flight Number</button>
+                <button class="stab" onclick="switchTab(this,'route')">By Route</button>
+                <div id="tab-number">
+                    <div class="status-field"><label>Flight Number</label><input type="text" id="flight-num-input" placeholder="e.g. UF-101"></div>
+                    <div class="status-field"><label>Date</label><input type="date" id="flight-num-date"></div>
+                    <button class="btn-check" onclick="searchByNumber()">Check Status</button>
+                </div>
+                <div id="tab-route" style="display:none;">
+                    <div class="status-field"><label>From</label><input type="text" id="route-from" placeholder="e.g. LHE"></div>
+                    <div class="status-field"><label>To</label><input type="text" id="route-to" placeholder="e.g. KHI"></div>
+                    <button class="btn-check" onclick="searchByRoute()">Check Status</button>
+                </div>
+            </div>
+            <div id="status-results"></div>
+        </div>
+    </section>
+    <footer class="footer"><div class="footer-bottom"><p>&copy; 2026 Unifly Airline. All rights reserved.</p></div></footer>
+    <script src="js/main.js"></script>
+    <script src="js/flight-status.js"></script>
+</body>
+</html>

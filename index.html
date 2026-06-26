@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unifly Airline - Great People to Fly With</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- ANNOUNCEMENT BANNER -->
+    <div class="announcement-bar">
+        <span>✈ Direct Flights from Lahore to Dubai Starting June 2026 - 
+              <a href="flights.html">Click Here</a></span>
+        <button onclick="this.parentElement.style.display='none'">✕</button>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-text">Unifly</span>
+                <span class="logo-sub">Airline</span>
+            </div>
+            <ul class="nav-links">
+                <li class="dropdown">
+                    <a href="flights.html">Where we Fly ▾</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="flights.html">Search Flights</a></li>
+                        <li><a href="destinations.html">Our Network</a></li>
+                        <li><a href="destinations.html">Destinations</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#">Experience ▾</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="booking.html">Baggage</a></li>
+                        <li><a href="booking.html">Cabins</a></li>
+                        <li><a href="booking.html">Meals</a></li>
+                        <li><a href="flights.html">Seat Selection</a></li>
+                    </ul>
+                </li>
+                <li><a href="miles.html">UniflyMiles</a></li>
+                <li><a href="deals.html">Deals</a></li>
+                <li><a href="flight-status.html">Flight Status</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-buttons">
+                <a href="login.html" class="btn-login">Login</a>
+                <a href="register.html" class="btn-register">Register</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Fly Anywhere<br>With Unifly</h1>
+            <p>Pakistan's smartest airline. Book flights, manage trips, earn rewards.</p>
+        </div>
+    </section>
+
+    <!-- SEARCH BOX -->
+    <section class="search-section">
+        <div class="search-box">
+            <div class="search-tabs">
+                <button class="search-tab active">One Way</button>
+            </div>
+            <div class="search-row">
+                <div class="search-field">
+                    <label>From</label>
+                    <input type="text" id="from" placeholder="e.g. Lahore (LHE)">
+                </div>
+                <div class="search-field">
+                    <label>To</label>
+                    <input type="text" id="to" placeholder="e.g. Karachi (KHI)">
+                </div>
+                <div class="search-field">
+                    <label>Departure</label>
+                    <input type="date" id="date">
+                </div>
+                <div class="search-field">
+                    <label>Passengers</label>
+                    <select id="passengers">
+                        <option value="1">1 Adult</option>
+                        <option value="2">2 Adults</option>
+                        <option value="3">3 Adults</option>
+                        <option value="4">4 Adults</option>
+                    </select>
+                </div>
+                <div class="search-field">
+                    <label>Class</label>
+                    <select id="class">
+                        <option>Economy</option>
+                        <option>Business</option>
+                        <option>First</option>
+                    </select>
+                </div>
+            </div>
+            <button class="btn-search" onclick="searchFlights()">
+                Search Flights
+            </button>
+        </div>
+    </section>
+
+    <!-- SERVICES SECTION -->
+    <section class="services-section">
+        <div class="services-container">
+            <h2>Enhance Your Journey</h2>
+            <p class="section-sub">Customize your travel experience with Unifly</p>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🍽️</div>
+                    <h3>Pre-book Meals</h3>
+                    <p>Choose your meal preference before your flight for a delightful dining experience.</p>
+                    <a href="flights.html">Learn More</a>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">💺</div>
+                    <h3>Seat Selection</h3>
+                    <p>Pick your preferred seat — window, aisle, or extra legroom.</p>
+                    <a href="flights.html">Learn More</a>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🧳</div>
+                    <h3>Extra Baggage</h3>
+                    <p>Add extra baggage to your booking at a great price before you fly.</p>
+                    <a href="flights.html">Learn More</a>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">⭐</div>
+                    <h3>UniflyMiles</h3>
+                    <p>Earn miles on every flight and redeem them for free tickets and upgrades.</p>
+                    <a href="miles.html">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEWS SECTION -->
+    <section class="news-section">
+        <div class="news-container">
+            <h2>Our News</h2>
+            <div class="news-grid">
+                <div class="news-card">
+                    <div class="news-img" style="background:#1a3a2a"></div>
+                    <div class="news-body">
+                        <h3>Unifly Launches Lahore to Dubai Route</h3>
+                        <p>Unifly Airline is proud to announce new direct flights between Lahore and Dubai starting June 2026 with 3 weekly flights.</p>
+                        <a href="flights.html" class="news-link">Learn More</a>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <div class="news-img" style="background:#2a1a0a"></div>
+                    <div class="news-body">
+                        <h3>Discover Skardu with Unifly</h3>
+                        <p>Explore the breathtaking beauty of Skardu with Unifly's new northern routes.</p>
+                        <a href="destinations.html" class="news-link">Learn More</a>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <div class="news-img" style="background:#0a1a2a"></div>
+                    <div class="news-body">
+                        <h3>UniflyMiles — Earn While You Fly</h3>
+                        <p>Introducing UniflyMiles — Pakistan's most rewarding loyalty program.</p>
+                        <a href="miles.html" class="news-link">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEWSLETTER -->
+    <section class="newsletter-section">
+        <div class="newsletter-container">
+            <div class="newsletter-left">
+                <h2>Get the latest deals straight to your inbox.</h2>
+                <div class="newsletter-form">
+                    <input type="email" placeholder="Enter your email address">
+                    <select>
+                        <option>Select City</option>
+                        <option>Lahore</option>
+                        <option>Karachi</option>
+                        <option>Islamabad</option>
+                    </select>
+                    <button>Sign Up</button>
+                </div>
+            </div>
+            <div class="newsletter-right">
+                <h2>Download the Unifly App</h2>
+                <p>Manage bookings, check flight status, and earn UniflyMiles on the go!</p>
+                <div class="app-buttons">
+                    <a href="#" class="app-btn">🍎 App Store</a>
+                    <a href="#" class="app-btn">🤖 Google Play</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WAVE -->
+    <div class="wave-divider">
+        <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
+            <path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" fill="#006400"/>
+            <path d="M0,55 C360,95 1080,15 1440,55 L1440,80 L0,80 Z" fill="#C8A951" opacity="0.5"/>
+        </svg>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <div class="footer-logo">
+                    <span class="logo-text">Unifly</span>
+                    <span class="logo-sub">Airline</span>
+                </div>
+                <p>Pakistan's smartest airline.<br>Fly smarter, fly better.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Where We Fly</h3>
+                <ul>
+                    <li><a href="flights.html">Search Flights</a></li>
+                    <li><a href="destinations.html">Destinations</a></li>
+                    <li><a href="destinations.html">Our Network</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Experience</h3>
+                <ul>
+                    <li><a href="booking.html">Baggage</a></li>
+                    <li><a href="booking.html">Meals</a></li>
+                    <li><a href="flights.html">Seat Selection</a></li>
+                    <li><a href="miles.html">UniflyMiles</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Help</h3>
+                <ul>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="flight-status.html">Flight Status</a></li>
+                    <li><a href="deals.html">Deals</a></li>
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="register.html">Register</a></li>
+                    <li><a href="admin-login.html">Admin</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Contact</h3>
+                <p>📍 Unifly HQ, Lahore, Pakistan</p>
+                <p>📞 0800-UNIFLY</p>
+                <p>✉️ support@unifly.pk</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Unifly Airline. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

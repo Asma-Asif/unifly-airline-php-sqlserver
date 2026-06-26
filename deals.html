@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deals - Unifly Airline</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .deals-section { min-height: 100vh; background: #f5f7fa; padding: 40px 20px; }
+        .deals-container { max-width: 1000px; margin: 0 auto; }
+        .deals-header { text-align: center; margin-bottom: 40px; }
+        .deals-header h1 { font-size: 2.2rem; color: #1a1a2e; margin-bottom: 8px; }
+        .deals-hero { background: linear-gradient(135deg, #1a1a2e 0%, #1b6ca8 100%); border-radius: 20px; padding: 40px; color: #fff; margin-bottom: 36px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+        .deals-hero h2 { font-size: 1.8rem; font-weight: 800; margin-bottom: 8px; }
+        .deals-hero p { font-size: 0.95rem; opacity: 0.85; margin-bottom: 16px; }
+        .btn-hero { padding: 12px 28px; background: #ffd700; color: #1a1a2e; border: none; border-radius: 10px; font-size: 1rem; font-weight: 800; cursor: pointer; }
+        .hero-price .from { font-size: 0.85rem; opacity: 0.7; }
+        .hero-price .amount { font-size: 3rem; font-weight: 900; color: #ffd700; line-height: 1; }
+        .filter-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; }
+        .ftab { padding: 8px 20px; border-radius: 20px; border: 1.5px solid #e0e0e0; background: #fff; font-size: 0.85rem; font-weight: 600; cursor: pointer; color: #666; }
+        .ftab.active { background: #1b6ca8; border-color: #1b6ca8; color: #fff; }
+        .deals-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; margin-bottom: 40px; }
+        .deal-card { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 2px 16px rgba(0,0,0,0.08); transition: transform 0.2s; }
+        .deal-card:hover { transform: translateY(-4px); }
+        .deal-img { height: 120px; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; position: relative; }
+        .deal-badge { position: absolute; top: 10px; left: 10px; color: #fff; font-size: 0.72rem; font-weight: 800; padding: 4px 10px; border-radius: 20px; }
+        .deal-badge.hot     { background: #e53935; }
+        .deal-badge.new     { background: #2e7d32; }
+        .deal-badge.limited { background: #f57f17; }
+        .deal-body { padding: 16px; }
+        .deal-route { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+        .deal-code { font-size: 1.1rem; font-weight: 800; color: #1a1a2e; }
+        .deal-cities { font-size: 0.75rem; color: #888; margin-bottom: 8px; }
+        .deal-dates { font-size: 0.75rem; color: #888; margin-bottom: 12px; }
+        .deal-dates span { color: #1b6ca8; font-weight: 600; }
+        .deal-price-row { display: flex; align-items: center; justify-content: space-between; }
+        .deal-original { font-size: 0.75rem; color: #aaa; text-decoration: line-through; }
+        .deal-amount { font-size: 1.2rem; font-weight: 800; color: #1b6ca8; }
+        .deal-saving { font-size: 0.72rem; color: #2e7d32; font-weight: 700; }
+        .btn-deal { padding: 8px 16px; background: #1b6ca8; color: #fff; border: none; border-radius: 8px; font-size: 0.82rem; font-weight: 700; cursor: pointer; }
+        .btn-deal:hover { background: #155a8a; }
+        .promo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .promo-card { border-radius: 14px; padding: 24px; color: #fff; min-height: 140px; display: flex; flex-direction: column; justify-content: space-between; }
+        .promo-card h3 { font-size: 1.1rem; font-weight: 800; margin-bottom: 6px; }
+        .promo-card p { font-size: 0.82rem; opacity: 0.85; margin-bottom: 12px; }
+        .promo-code { display: inline-block; background: rgba(255,255,255,0.25); padding: 4px 12px; border-radius: 8px; font-size: 0.85rem; font-weight: 800; letter-spacing: 0.1em; border: 1px dashed rgba(255,255,255,0.5); }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo"><span class="logo-text">Unifly</span><span class="logo-sub">Airline</span></div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="flights.html">Flights</a></li>
+                <li><a href="deals.html">Deals</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-buttons"><a href="login.html" class="btn-login">Login</a><a href="register.html" class="btn-register">Register</a></div>
+        </div>
+    </nav>
+    <section class="deals-section">
+        <div class="deals-container">
+            <div class="deals-header"><h1>🔥 Hot Deals</h1><p>Exclusive offers and discounts on Unifly flights</p></div>
+            <div class="deals-hero">
+                <div>
+                    <h2>Summer Sale 2026</h2>
+                    <p>Book now and save up to 40% on selected routes.<br>Limited seats available!</p>
+                    <button class="btn-hero" onclick="window.location.href='flights.html'">Book Now →</button>
+                </div>
+                <div class="hero-price">
+                    <div class="from">Flights from</div>
+                    <div class="amount">7,999</div>
+                    <div style="font-size:1rem;opacity:0.8;">PKR one way</div>
+                </div>
+            </div>
+            <div class="filter-tabs">
+                <button class="ftab active" onclick="filterDeals(this,'all')">All Deals</button>
+                <button class="ftab" onclick="filterDeals(this,'domestic')">Domestic</button>
+                <button class="ftab" onclick="filterDeals(this,'international')">International</button>
+                <button class="ftab" onclick="filterDeals(this,'business')">Business Class</button>
+            </div>
+            <div class="deals-grid" id="deals-grid"></div>
+            <h2 style="font-size:1.3rem;font-weight:800;color:#1a1a2e;margin-bottom:20px;">🎟️ Promo Codes</h2>
+            <div class="promo-grid">
+                <div class="promo-card" style="background:linear-gradient(135deg,#1a1a2e,#1b6ca8);"><div><h3>First Booking Discount</h3><p>Get PKR 1,000 off on your first booking!</p></div><span class="promo-code">UNIFLY1000</span></div>
+                <div class="promo-card" style="background:linear-gradient(135deg,#2e7d32,#4caf50);"><div><h3>UniflyMiles Members</h3><p>Exclusive 15% discount for UniflyMiles members!</p></div><span class="promo-code">MILES15</span></div>
+                <div class="promo-card" style="background:linear-gradient(135deg,#f57f17,#ffa000);"><div><h3>Summer Special</h3><p>Book any flight in June 2026 and get 20% off!</p></div><span class="promo-code">SUMMER20</span></div>
+                <div class="promo-card" style="background:linear-gradient(135deg,#6a1b9a,#ab47bc);"><div><h3>Business Class Upgrade</h3><p>Upgrade to Business Class for only PKR 5,000 extra!</p></div><span class="promo-code">BIZUP5K</span></div>
+            </div>
+        </div>
+    </section>
+    <footer class="footer"><div class="footer-bottom"><p>&copy; 2026 Unifly Airline. All rights reserved.</p></div></footer>
+    <script src="js/main.js"></script>
+    <script src="js/deals.js"></script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destinations - Unifly Airline</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .dest-section { min-height: 100vh; background: #f5f7fa; padding: 40px 20px; }
+        .dest-container { max-width: 1000px; margin: 0 auto; }
+        .dest-header { text-align: center; margin-bottom: 40px; }
+        .dest-header h1 { font-size: 2.2rem; color: #1a1a2e; margin-bottom: 8px; }
+        .dest-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-bottom: 36px; }
+        .dest-stat { background: linear-gradient(135deg, #1a1a2e, #1b6ca8); border-radius: 14px; padding: 20px; text-align: center; color: #fff; }
+        .dest-stat .s-num { font-size: 2rem; font-weight: 800; }
+        .dest-stat .s-lbl { font-size: 0.78rem; opacity: 0.8; margin-top: 4px; text-transform: uppercase; }
+        .dest-search { background: #fff; border-radius: 14px; padding: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); margin-bottom: 28px; display: flex; gap: 12px; }
+        .dest-search input, .dest-search select { flex: 1; padding: 11px 14px; border: 1.5px solid #e0e0e0; border-radius: 10px; font-size: 0.92rem; }
+        .dest-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+        .dest-card { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 2px 16px rgba(0,0,0,0.08); transition: transform 0.2s, box-shadow 0.2s; cursor: pointer; }
+        .dest-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+        .dest-img { height: 140px; display: flex; align-items: center; justify-content: center; font-size: 3rem; position: relative; }
+        .dest-country-badge { position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.5); color: #fff; font-size: 0.7rem; font-weight: 700; padding: 3px 8px; border-radius: 10px; }
+        .dest-body { padding: 16px; }
+        .dest-city { font-size: 1.1rem; font-weight: 800; color: #1a1a2e; }
+        .dest-code { font-size: 0.75rem; color: #1b6ca8; font-weight: 700; letter-spacing: 0.08em; margin-bottom: 6px; }
+        .dest-airport { font-size: 0.78rem; color: #888; margin-bottom: 12px; }
+        .btn-fly { width: 100%; padding: 9px; background: #1b6ca8; color: #fff; border: none; border-radius: 8px; font-size: 0.82rem; font-weight: 700; cursor: pointer; }
+        .btn-fly:hover { background: #155a8a; }
+        .no-dest { text-align: center; color: #aaa; padding: 40px; grid-column: 1/-1; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo"><span class="logo-text">Unifly</span><span class="logo-sub">Airline</span></div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="flights.html">Flights</a></li>
+                <li><a href="destinations.html">Destinations</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-buttons"><a href="login.html" class="btn-login">Login</a><a href="register.html" class="btn-register">Register</a></div>
+        </div>
+    </nav>
+    <section class="dest-section">
+        <div class="dest-container">
+            <div class="dest-header"><h1>🌍 Our Destinations</h1><p>Explore all the cities Unifly flies to</p></div>
+            <div class="dest-stats">
+                <div class="dest-stat"><div class="s-num" id="total-dest">0</div><div class="s-lbl">Destinations</div></div>
+                <div class="dest-stat"><div class="s-num" id="total-countries">0</div><div class="s-lbl">Countries</div></div>
+                <div class="dest-stat"><div class="s-num" id="total-flights">0</div><div class="s-lbl">Daily Flights</div></div>
+            </div>
+            <div class="dest-search">
+                <input type="text" id="search-input" placeholder="🔍 Search city or airport..." oninput="filterDestinations()">
+                <select id="country-filter" onchange="filterDestinations()"><option value="">All Countries</option></select>
+            </div>
+            <div class="dest-grid" id="dest-grid"><div style="text-align:center;padding:60px;color:#888;grid-column:1/-1;">Loading destinations...</div></div>
+        </div>
+    </section>
+    <footer class="footer"><div class="footer-bottom"><p>&copy; 2026 Unifly Airline. All rights reserved.</p></div></footer>
+    <script src="js/main.js"></script>
+    <script src="js/destinations.js"></script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+// ── API CONFIG ──
+var API = 'http://localhost/unifly/api';
+
+// ── SAFE ELEMENT HELPER ──
+function el(id) { return document.getElementById(id); }
+
+// ── LOGIN ──
+function loginUser() {
+    const email    = el('email')    ? el('email').value    : '';
+    const password = el('password') ? el('password').value : '';
+
+    if (!email || !password) { alert('Please fill in all fields!'); return; }
+
+    fetch(API + '/auth.php?action=login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ email, password })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            alert('Welcome back, ' + data.data.name + '!');
+            window.location.href = 'http://localhost/unifly/dashboard.html';
+        } else {
+            alert(data.message);
+        }
+    })
+    .catch(() => alert('Connection error. Try again.'));
+}
+
+// ── REGISTER ──
+function registerUser() {
+    const first_name       = el('first_name')      ? el('first_name').value      : '';
+    const last_name        = el('last_name')        ? el('last_name').value       : '';
+    const email            = el('email')            ? el('email').value           : '';
+    const phone            = el('phone')            ? el('phone').value           : '';
+    const password         = el('password')         ? el('password').value        : '';
+    const confirm_password = el('confirm_password') ? el('confirm_password').value: '';
+
+    if (!first_name || !last_name || !email || !phone || !password) {
+        alert('Please fill in all fields!'); return;
+    }
+    if (password !== confirm_password) {
+        alert('Passwords do not match!'); return;
+    }
+
+    fetch(API + '/auth.php?action=register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ first_name, last_name, email, phone, password })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            alert('Account created! Please login.');
+            window.location.href = 'login.html';
+        } else {
+            alert(data.message);
+        }
+    })
+    .catch(() => alert('Connection error. Try again.'));
+}
+
+// ── SEARCH FLIGHTS ──
+function searchFlights() {
+    const fromEl = el('from');
+    const toEl   = el('to');
+    const dateEl = el('date');
+    const clsEl  = el('class');
+
+    if (!fromEl || !toEl || !dateEl) return;
+
+    const from = fromEl.value.trim().toUpperCase();
+    const to   = toEl.value.trim().toUpperCase();
+    const date = dateEl.value;
+    const cls  = clsEl ? clsEl.value : 'Economy';
+
+    if (!from || !to || !date) {
+        alert('Please fill in From, To, and Departure date!');
+        return;
+    }
+
+    window.location.href = `flights.html?from=${from}&to=${to}&date=${date}&class=${cls}`;
+}
+
+// ── NAV ACTIVE + DATE MIN ──
+document.addEventListener('DOMContentLoaded', function () {
+    const currentPage = window.location.pathname.split('/').pop();
+    document.querySelectorAll('nav a').forEach(link => {
+        if (link.getAttribute('href') === currentPage)
+            link.classList.add('active');
+    });
+    const today = new Date().toISOString().split('T')[0];
+    document.querySelectorAll('input[type="date"]').forEach(input => {
+        if (!input.min) input.min = today;
+    });
+});

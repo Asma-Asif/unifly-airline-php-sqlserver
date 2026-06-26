@@ -1,0 +1,100 @@
+// ── FLIGHTS PAGE ──
+function getParams() {
+    const p = new URLSearchParams(window.location.search);
+    return {
+        from: p.get('from')  || '',
+        to:   p.get('to')    || '',
+        date: p.get('date')  || '',
+        cls:  p.get('class') || 'Economy'
+    };
+}
+
+window.onload = function () {
+    const params = getParams();
+    if (el('from'))  el('from').value  = params.from;
+    if (el('to'))    el('to').value    = params.to;
+    if (el('date'))  el('date').value  = params.date;
+    if (el('class')) el('class').value = params.cls;
+
+    if (params.from && params.to && params.date) {
+        loadFlights(params.from, params.to, params.date, params.cls);
+    }
+};
+
+function loadFlights(from, to, date, cls) {
+    const info = el('results-info');
+    const list = el('flights-list');
+    if (!info || !list) return;
+
+    info.innerHTML = '<p class="loading">Searching flights...</p>';
+    list.innerHTML = '';
+
+    fetch(`${API}/flights.php?action=search&from=${from}&to=${to}&date=${date}&class=${cls}`)
+        .then(res => res.json())
+        .then(data => {
+            if (!data.success) {
+                info.innerHTML = `<p class="no-results">${data.message}</p>`;
+                return;
+            }
+            const flights = data.data.flights;
+            if (!flights || flights.length === 0) {
+                info.innerHTML = '<p class="no-results">No flights found for this route and date.</p>';
+                return;
+            }
+            info.innerHTML = `<p class="results-count">${flights.length} flight(s) found</p>`;
+            list.innerHTML = flights.map(f => `
+                <div class="flight-card">
+                    <div class="flight-route">
+                        <div class="flight-city">
+                            <span class="city-code">${f.from_code}</span>
+                            <span class="city-name">${f.from_city}</span>
+                            <span class="flight-time">${f.departure_time.split(' ')[1]}</span>
+                        </div>
+                        <div class="flight-middle">
+                            <span class="duration">${f.duration}</span>
+                            <div class="flight-line">✈</div>
+                            <span class="flight-num">${f.flight_number}</span>
+                        </div>
+                        <div class="flight-city">
+                            <span class="city-code">${f.to_code}</span>
+                            <span class="city-name">${f.to_city}</span>
+                            <span class="flight-time">${f.arrival_time.split(' ')[1]}</span>
+                        </div>
+                    </div>
+                    <div class="flight-info">
+                        <span class="aircraft">${f.aircraft_model}</span>
+                        <span class="seats">${f.available_seats} seats left</span>
+                    </div>
+                    <div class="flight-footer">
+                        <div class="flight-price">
+                            <span class="price-label">PKR</span>
+                            <span class="price-amount">${Number(f.price).toLocaleString()}</span>
+                        </div>
+                        <button class="btn-book" onclick="bookFlight(${f.flight_id}, '${cls}')">
+                            Book Now
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        })
+        .catch(() => {
+            info.innerHTML = '<p class="no-results">Connection error. Make sure XAMPP is running.</p>';
+        });
+}
+
+function searchFlights() {
+    const from = el('from')  ? el('from').value.trim().toUpperCase()  : '';
+    const to   = el('to')    ? el('to').value.trim().toUpperCase()    : '';
+    const date = el('date')  ? el('date').value                       : '';
+    const cls  = el('class') ? el('class').value                      : 'Economy';
+
+    if (!from || !to || !date) {
+        alert('Please fill in From, To, and Date!');
+        return;
+    }
+    window.location.href = `flights.html?from=${from}&to=${to}&date=${date}&class=${cls}`;
+}
+
+function bookFlight(flightId, cls) {
+    window.location.href = `booking.html?flight_id=${flightId}&class=${cls}`;
+}

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Unifly Airline</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo"><span class="logo-text">Unifly</span><span class="logo-sub">Airline</span></div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="flights.html">Flights</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-buttons">
+                <a href="login.html" class="btn-login">Login</a>
+                <a href="register.html" class="btn-register">Register</a>
+            </div>
+        </div>
+    </nav>
+    <section class="contact-section">
+        <div class="contact-container">
+            <div class="contact-info">
+                <h2>Get In Touch</h2>
+                <p>We're here to help with your travel needs</p>
+                <div class="contact-item">
+                    <div class="contact-icon">📍</div>
+                    <div><strong>Address</strong><p>Unifly HQ, Lahore, Pakistan</p></div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📞</div>
+                    <div><strong>Phone</strong><p>0800-UNIFLY</p></div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">✉️</div>
+                    <div><strong>Email</strong><p>support@unifly.pk</p></div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">🕐</div>
+                    <div><strong>Hours</strong><p>24/7 Customer Support</p></div>
+                </div>
+            </div>
+            <div class="contact-form">
+                <h2>Submit a Complaint</h2>
+                <div class="auth-field">
+                    <label>Category</label>
+                    <select id="category">
+                        <option value="Flight Delay">Flight Delay</option>
+                        <option value="Lost Baggage">Lost Baggage</option>
+                        <option value="Refund Request">Refund Request</option>
+                        <option value="Staff Behavior">Staff Behavior</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="auth-field">
+                    <label>Subject</label>
+                    <input type="text" id="subject" placeholder="Brief subject">
+                </div>
+                <div class="auth-field">
+                    <label>Description</label>
+                    <textarea id="description" rows="5" placeholder="Describe your issue..."></textarea>
+                </div>
+                <button class="btn-auth" onclick="submitComplaint()">Submit Complaint</button>
+                <div class="track-section">
+                    <h3>Track Your Complaint</h3>
+                    <div class="track-row">
+                        <input type="text" id="ticket-input" placeholder="Enter ticket number">
+                        <button onclick="trackComplaint()">Track</button>
+                    </div>
+                    <div id="track-result"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="footer"><div class="footer-bottom"><p>&copy; 2026 Unifly Airline. All rights reserved.</p></div></footer>
+    <script src="js/main.js"></script>
+    <script src="js/contact.js"></script>
+</body>
+</html>

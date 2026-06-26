@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Seat - Unifly Airline</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .seats-section { min-height: 100vh; background: #f5f7fa; padding: 40px 20px; }
+        .seats-container { max-width: 900px; margin: 0 auto; }
+        .seats-header { text-align: center; margin-bottom: 30px; }
+        .seats-header h1 { font-size: 2rem; color: #1a1a2e; margin-bottom: 8px; }
+        .seats-header p { color: #666; font-size: 0.95rem; }
+        .progress-bar { display: flex; justify-content: center; align-items: center; margin-bottom: 36px; }
+        .progress-step { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+        .step-circle { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85rem; border: 2px solid #ddd; background: #fff; color: #aaa; }
+        .step-circle.done { background: #2e7d32; border-color: #2e7d32; color: #fff; }
+        .step-circle.active { background: #1b6ca8; border-color: #1b6ca8; color: #fff; }
+        .step-label { font-size: 0.72rem; color: #888; font-weight: 600; text-transform: uppercase; }
+        .step-label.active { color: #1b6ca8; }
+        .step-label.done { color: #2e7d32; }
+        .step-line { width: 60px; height: 2px; background: #ddd; margin-bottom: 22px; }
+        .step-line.done { background: #2e7d32; }
+        .seats-layout { display: grid; grid-template-columns: 1fr 300px; gap: 24px; align-items: start; }
+        @media(max-width:700px){ .seats-layout { grid-template-columns: 1fr; } }
+        .seatmap-card { background: #fff; border-radius: 16px; padding: 28px 24px; box-shadow: 0 2px 16px rgba(0,0,0,0.08); }
+        .seatmap-card h3 { font-size: 1.1rem; color: #1a1a2e; margin-bottom: 20px; }
+        .seat-legend { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 24px; }
+        .legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.8rem; color: #555; }
+        .legend-dot { width: 18px; height: 18px; border-radius: 4px; border: 1.5px solid transparent; }
+        .legend-dot.available { background: #e8f5e9; border-color: #4caf50; }
+        .legend-dot.occupied { background: #f5f5f5; border-color: #bbb; }
+        .legend-dot.selected { background: #1b6ca8; border-color: #1b6ca8; }
+        .legend-dot.business { background: #fff8e1; border-color: #f9a825; }
+        .seat-row { display: flex; align-items: center; justify-content: center; gap: 4px; margin-bottom: 5px; }
+        .row-number { width: 22px; text-align: right; font-size: 0.7rem; color: #aaa; margin-right: 4px; }
+        .aisle-gap { width: 20px; }
+        .col-headers { display: flex; align-items: center; justify-content: center; gap: 4px; margin-bottom: 8px; }
+        .col-header { width: 32px; text-align: center; font-size: 0.7rem; color: #aaa; font-weight: 700; }
+        .seat { width: 32px; height: 32px; border-radius: 6px 6px 4px 4px; border: 1.5px solid #4caf50; background: #e8f5e9; cursor: pointer; font-size: 0.62rem; font-weight: 700; color: #2e7d32; transition: all 0.15s ease; display: flex; align-items: center; justify-content: center; }
+        .seat:hover:not(.occupied):not(.selected) { background: #c8e6c9; transform: translateY(-2px); }
+        .seat.occupied { background: #f5f5f5; border-color: #bbb; color: #bbb; cursor: not-allowed; }
+        .seat.selected { background: #1b6ca8; border-color: #1b6ca8; color: #fff; transform: translateY(-2px); }
+        .seat.business-seat { background: #fff8e1; border-color: #f9a825; color: #f57f17; width: 36px; height: 36px; }
+        .seat.business-seat.selected { background: #f9a825; border-color: #f9a825; color: #fff; }
+        .cabin-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 4px 12px; border-radius: 20px; display: block; text-align: center; margin: 10px auto; }
+        .cabin-label.business { background: #fff8e1; color: #f57f17; }
+        .cabin-label.economy { background: #e3f2fd; color: #1565c0; }
+        .side-panel { display: flex; flex-direction: column; gap: 16px; }
+        .info-card { background: #fff; border-radius: 14px; padding: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); }
+        .info-card h3 { font-size: 0.9rem; color: #1a1a2e; margin-bottom: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
+        .selected-seat-number { font-size: 2.2rem; font-weight: 800; color: #1b6ca8; text-align: center; }
+        .selected-seat-label { font-size: 0.75rem; color: #888; text-align: center; margin-top: 4px; }
+        .seat-feature { display: flex; align-items: center; gap: 8px; font-size: 0.82rem; color: #555; margin-top: 8px; }
+        .feature-icon { width: 28px; height: 28px; background: #f0f7ff; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; flex-shrink: 0; }
+        .price-row { display: flex; justify-content: space-between; padding: 8px 0; font-size: 0.88rem; color: #555; border-bottom: 1px solid #f0f0f0; }
+        .price-row:last-child { border-bottom: none; }
+        .price-row.total { font-weight: 700; font-size: 1rem; color: #1a1a2e; padding-top: 12px; }
+        .btn-proceed { width: 100%; padding: 14px; background: #1b6ca8; color: #fff; border: none; border-radius: 10px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: background 0.2s; }
+        .btn-proceed:hover { background: #155a8a; }
+        .btn-proceed:disabled { background: #ccc; cursor: not-allowed; }
+        .btn-back { width: 100%; padding: 11px; background: transparent; color: #1b6ca8; border: 1.5px solid #1b6ca8; border-radius: 10px; font-size: 0.9rem; font-weight: 600; cursor: pointer; margin-top: 10px; }
+        .btn-back:hover { background: #f0f7ff; }
+        .no-seat-msg { text-align: center; color: #aaa; font-size: 0.85rem; padding: 8px 0; }
+        .loading-seats { text-align: center; padding: 40px; color: #888; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-text">Unifly</span>
+                <span class="logo-sub">Airline</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="flights.html">Flights</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-buttons">
+                <a href="login.html" class="btn-login">Login</a>
+                <a href="register.html" class="btn-register">Register</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="seats-section">
+        <div class="seats-container">
+            <div class="seats-header">
+                <h1>Choose Your Seat</h1>
+                <p>Select a seat to continue with your booking</p>
+            </div>
+
+            <div class="progress-bar">
+                <div class="progress-step">
+                    <div class="step-circle done">✓</div>
+                    <span class="step-label done">Flight</span>
+                </div>
+                <div class="step-line done"></div>
+                <div class="progress-step">
+                    <div class="step-circle done">✓</div>
+                    <span class="step-label done">Details</span>
+                </div>
+                <div class="step-line done"></div>
+                <div class="progress-step">
+                    <div class="step-circle active">3</div>
+                    <span class="step-label active">Seat</span>
+                </div>
+                <div class="step-line"></div>
+                <div class="progress-step">
+                    <div class="step-circle">4</div>
+                    <span class="step-label">Payment</span>
+                </div>
+            </div>
+
+            <div class="seats-layout">
+                <div class="seatmap-card">
+                    <h3>✈ Aircraft Cabin</h3>
+                    <div class="seat-legend">
+                        <div class="legend-item"><div class="legend-dot available"></div><span>Available</span></div>
+                        <div class="legend-item"><div class="legend-dot occupied"></div><span>Occupied</span></div>
+                        <div class="legend-item"><div class="legend-dot selected"></div><span>Your Seat</span></div>
+                        <div class="legend-item"><div class="legend-dot business"></div><span>Business</span></div>
+                    </div>
+                    <div style="text-align:center;font-size:2rem;margin-bottom:8px;">🛫</div>
+                    <div class="col-headers">
+                        <div style="width:26px;"></div>
+                        <div class="col-header">A</div>
+                        <div class="col-header">B</div>
+                        <div class="col-header">C</div>
+                        <div class="aisle-gap"></div>
+                        <div class="col-header">D</div>
+                        <div class="col-header">E</div>
+                        <div class="col-header">F</div>
+                    </div>
+                    <div id="seatmap-container">
+                        <div class="loading-seats">Loading seat map...</div>
+                    </div>
+                </div>
+
+                <div class="side-panel">
+                    <div class="info-card">
+                        <h3>Selected Seat</h3>
+                        <div id="seat-info">
+                            <p class="no-seat-msg">No seat selected yet.<br>Click a seat on the map.</p>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <h3>Price Summary</h3>
+                        <div class="price-row"><span>Base Fare</span><span id="disp-base">PKR 0</span></div>
+                        <div class="price-row"><span>Extra Baggage</span><span id="disp-baggage">PKR 0</span></div>
+                        <div class="price-row"><span>Seat Fee</span><span id="disp-seat-fee">PKR 0</span></div>
+                        <div class="price-row total"><span>Total</span><span id="disp-total">PKR 0</span></div>
+                    </div>
+                    <div class="info-card" style="padding:16px;">
+                        <button class="btn-proceed" id="btn-proceed" onclick="proceedToPayment()" disabled>
+                            Proceed to Payment →
+                        </button>
+                        <button class="btn-back" onclick="history.back()">← Back to Booking</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-bottom">
+            <p>&copy; 2026 Unifly Airline. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/seats.js"></script>
+</body>
+</html>

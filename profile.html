@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - Unifly Airline</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .profile-section { min-height: 100vh; background: #f5f7fa; padding: 40px 20px; }
+        .profile-container { max-width: 700px; margin: 0 auto; }
+        .avatar-card { background: linear-gradient(135deg, #1a1a2e, #1b6ca8); border-radius: 16px; padding: 32px; display: flex; align-items: center; gap: 24px; margin-bottom: 24px; color: #fff; }
+        .avatar-circle { width: 80px; height: 80px; border-radius: 50%; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 800; flex-shrink: 0; border: 3px solid rgba(255,255,255,0.4); }
+        .avatar-info h2 { font-size: 1.4rem; font-weight: 800; margin-bottom: 4px; }
+        .avatar-info p { font-size: 0.85rem; opacity: 0.8; }
+        .profile-card { background: #fff; border-radius: 16px; padding: 28px; box-shadow: 0 2px 16px rgba(0,0,0,0.08); margin-bottom: 20px; }
+        .profile-card h3 { font-size: 1rem; font-weight: 700; color: #1a1a2e; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 0.06em; border-bottom: 2px solid #f0f0f0; padding-bottom: 12px; }
+        .field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .prof-field { display: flex; flex-direction: column; gap: 6px; }
+        .prof-field label { font-size: 0.8rem; font-weight: 600; color: #555; }
+        .prof-field input { padding: 11px 14px; border: 1.5px solid #e0e0e0; border-radius: 10px; font-size: 0.92rem; }
+        .prof-field input:focus { outline: none; border-color: #1b6ca8; }
+        .prof-field input:read-only { background: #f8f8f8; color: #888; }
+        .full-field { margin-bottom: 16px; }
+        .full-field label { display: block; font-size: 0.8rem; font-weight: 600; color: #555; margin-bottom: 6px; }
+        .full-field input { width: 100%; padding: 11px 14px; border: 1.5px solid #e0e0e0; border-radius: 10px; font-size: 0.92rem; box-sizing: border-box; }
+        .full-field input:focus { outline: none; border-color: #1b6ca8; }
+        .btn-save { padding: 12px 28px; background: #1b6ca8; color: #fff; border: none; border-radius: 10px; font-size: 0.95rem; font-weight: 700; cursor: pointer; }
+        .btn-save:hover { background: #155a8a; }
+        .success-msg { color: #2e7d32; font-size: 0.85rem; margin-top: 10px; display: none; }
+        .error-msg { color: #e53935; font-size: 0.85rem; margin-top: 10px; display: none; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo"><span class="logo-text">Unifly</span><span class="logo-sub">Airline</span></div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="flights.html">Flights</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-buttons"><a href="#" onclick="logoutUser()" class="btn-login">Logout</a></div>
+        </div>
+    </nav>
+    <section class="profile-section">
+        <div class="profile-container">
+            <div class="avatar-card">
+                <div class="avatar-circle" id="avatar-initials">?</div>
+                <div class="avatar-info">
+                    <h2 id="avatar-name">Loading...</h2>
+                    <p id="avatar-email">...</p>
+                </div>
+            </div>
+            <div class="profile-card">
+                <h3>👤 Personal Information</h3>
+                <div class="field-grid">
+                    <div class="prof-field"><label>First Name</label><input type="text" id="first_name"></div>
+                    <div class="prof-field"><label>Last Name</label><input type="text" id="last_name"></div>
+                    <div class="prof-field"><label>Email</label><input type="email" id="email" readonly></div>
+                    <div class="prof-field"><label>Phone</label><input type="text" id="phone"></div>
+                    <div class="prof-field"><label>Date of Birth</label><input type="date" id="dob"></div>
+                    <div class="prof-field"><label>Passport Number</label><input type="text" id="passport"></div>
+                </div>
+                <br>
+                <button class="btn-save" onclick="updateProfile()">Save Changes</button>
+                <p class="success-msg" id="profile-success">✅ Profile updated!</p>
+                <p class="error-msg" id="profile-error">❌ Failed to update.</p>
+            </div>
+            <div class="profile-card">
+                <h3>🔒 Change Password</h3>
+                <div class="full-field"><label>Current Password</label><input type="password" id="current-password"></div>
+                <div class="full-field"><label>New Password</label><input type="password" id="new-password"></div>
+                <div class="full-field"><label>Confirm New Password</label><input type="password" id="confirm-password"></div>
+                <button class="btn-save" onclick="changePassword()">Update Password</button>
+                <p class="success-msg" id="pass-success">✅ Password changed!</p>
+                <p class="error-msg" id="pass-error">❌ Failed to change password.</p>
+            </div>
+        </div>
+    </section>
+    <footer class="footer"><div class="footer-bottom"><p>&copy; 2026 Unifly Airline. All rights reserved.</p></div></footer>
+    <script src="js/main.js"></script>
+    <script src="js/profile.js"></script>
+</body>
+</html>
